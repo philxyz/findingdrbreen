@@ -132,11 +132,10 @@ function RemoveDeadRag( ent )
 end
 hook.Add("OnEntityCreated", "RemoveDeadRag", RemoveDeadRag)
 
---[[ -- Allow the Q menu
+-- Disallow the Q menu
 function GM:SpawnMenuEnabled()
-	return true
+	return false
 end
-]]
 
 function GM:PlayerDeath()
 	math.randomseed(os.time())
