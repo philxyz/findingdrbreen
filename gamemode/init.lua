@@ -39,12 +39,15 @@ function GM:Think()
 		TimeSinceL = CurTime()
 		RoundTime = RoundTime - 1
 		local plys = player.GetAll()
+		local atLeastOnePlayerIsAlive = true
                 for _, v in ipairs(plys) do
+			if not v:Alive() then atLeastOnePlayerIsAlive = false end
+
                         umsg.Start("rt")
 			umsg.Short(RoundTime)
                         umsg.End()
                 end
-		if RoundTime == 0 then
+		if RoundTime <= 0 or not atLeastOnePlayerIsAlive then
 			self:KillEveryone()
 			local m = self
 			timer.Simple(2, function() m:EndRound() end)

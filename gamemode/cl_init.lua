@@ -134,7 +134,7 @@ hook.Add("OnEntityCreated", "RemoveDeadRag", RemoveDeadRag)
 
 -- Disallow the Q menu
 function GM:SpawnMenuEnabled()
-	return false
+	return LocalPlayer():IsAdmin() or LocalPlayer():IsSuperAdmin()
 end
 
 function GM:PlayerDeath()
@@ -144,6 +144,10 @@ function GM:PlayerDeath()
 end
 
 function GM:GetRemainingTime()
+	if RemainingTime < 0 then
+		return "0:00"
+	end
+
 	local rtm60 = tostring(RemainingTime % 60)
 	if #rtm60 == 1 then
 		rtm60 = "0" .. rtm60
