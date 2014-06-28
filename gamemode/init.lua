@@ -149,7 +149,7 @@ function GM:GetBreenPos()
 		lowestvec = -1000
 		highestvec = 1000
 	end
-	local ypos = math.random(lowestvec - 400, highestvec + 400)
+	local ypos = math.random(lowestvec - 1400, highestvec + 1400)
 
 	local v = Vector(math.random(-16384, 16383), ypos, math.random(-16384, 16383))
 	while not util.IsInWorld(v) do
