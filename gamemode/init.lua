@@ -47,7 +47,7 @@ function GM:Think()
 			umsg.Short(RoundTime)
                         umsg.End()
                 end
-		if RoundTime <= 0 or not atLeastOnePlayerIsAlive then
+		if self.RoundInProgress and (RoundTime <= 0 or not atLeastOnePlayerIsAlive) then
 			self:KillEveryone()
 			local m = self
 			timer.Simple(2, function() m:EndRound() end)
@@ -56,6 +56,8 @@ function GM:Think()
 end
 
 function GM:KillEveryone()
+	self.RoundInProgress = false
+
 	local pls = player.GetAll()
 	local breen = ents.FindByClass("npc_breen")
 	for _, v in ipairs(pls) do
@@ -93,9 +95,6 @@ function GM:PlayerSpawn(ply)
 	ply:SetAmmo(0, "XBowBolt")
 
 	umsg.Start("hdm", ply)
-	umsg.End()
-
-	umsg.Start("bs", ply)
 	umsg.End()
 end
 
@@ -164,6 +163,13 @@ function GM:GiveUsABreen()
         breen:SetAngles(Angle(0, 0, 0))
         breen:Spawn()
         breen:DropToFloor()
+
+	self.RoundInProgress = true
+
+	for _, v in ipairs(player.GetAll()) do
+		umsg.Start("bs", v)
+        	umsg.End()
+	end
 end
 
 function GM:OnNPCKilled(npc, attacker, weapon)
