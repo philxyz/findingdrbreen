@@ -94,6 +94,12 @@ function GM:PlayerSpawn(ply)
 	ply:Give("weapon_crossbow")
 	ply:SetAmmo(0, "XBowBolt")
 
+	if not ply.HearedInitialSpeech then
+		ply.HearedInitialSpeech = true
+		umsg.Start("bs", ply)
+		umsg.End()
+	end
+
 	umsg.Start("hdm", ply)
 	umsg.End()
 end
@@ -153,7 +159,10 @@ function GM:GetBreenPos()
 end
 
 function GM:InitPostEntity()
-	self:GiveUsABreen()
+	if not self.FirstBreenDone then
+		self.FirstBreenDone = true
+		self:GiveUsABreen()
+	end
 end
 
 function GM:GiveUsABreen()
