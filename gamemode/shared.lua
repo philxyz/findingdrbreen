@@ -8,6 +8,6 @@ GM.Author = "philxyz"
 GM.Email = ""
 GM.Website = "phil.xyz"
 
-DeriveGamemode("sandbox")
+DeriveGamemode("base")
 
 DefaultRoundTime = 180

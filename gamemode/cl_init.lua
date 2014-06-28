@@ -3,6 +3,7 @@
 -- Liberty License
 
 include("shared.lua")
+require("notification")
 
 ShowDeathMessage = false
 
@@ -117,8 +118,8 @@ end
 usermessage.Hook("rt", function(um) UpdateTimer(um:ReadShort()) end)
 usermessage.Hook("ds", function(um) Scream(LocalPlayer(), um:ReadShort()) end)
 usermessage.Hook("bs", function() BreenBeginTalking() end)
-usermessage.Hook("kn", function(um) GAMEMODE:AddNotify(ents.GetByIndex(um:ReadShort()):Nick() .. " has found and killed Dr. Breen! Round restarting..", NOTIFY_GENERIC, 4) end)
-usermessage.Hook("ed", function() GAMEMODE:AddNotify("Nobody found Dr. Breen in time! Naturally, everybody dies!", NOTIFY_GENERIC, 3) end)
+usermessage.Hook("kn", function(um) notification.AddLegacy(ents.GetByIndex(um:ReadShort()):Nick() .. " has found and killed Dr. Breen! Round restarting...", NOTIFY_GENERIC, 4) end)
+usermessage.Hook("ed", function() notification.AddLegacy("Nobody found Dr. Breen in time! Naturally, everybody dies!", NOTIFY_GENERIC, 3) end)
 usermessage.Hook("ddm", function() ShowDeathMessage = true end)
 usermessage.Hook("hdm", function() ShowDeathMessage = false end)
 
