@@ -146,7 +146,7 @@ end
 
 function GM:GetRemainingTime()
 	if RemainingTime < 0 then
-		return "0:00"
+		return "-:--"
 	end
 
 	local rtm60 = tostring(RemainingTime % 60)
